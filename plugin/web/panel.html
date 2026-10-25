@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>锚点 · 建筑图像工作台</title><style>/* ANCHOR_STYLES */</style></head>
+<body><main class="panel">
+  <header><div><span class="eyebrow">ANCHOR / 建筑图像工作流</span><h1>把参考，变成明确的方向。</h1></div><button type="button" id="expand" hidden>展开 ↗</button></header>
+  <p id="host-mode" class="mode" role="status">正在检测聊天连接…</p>
+  <details class="device-guide"><summary>在电脑、手机和平板上使用</summary><p>登录同一个 ChatGPT 账号，并切换到安装本插件的工作区。在“插件 → 个人 / 已安装”找到“锚点 · 建筑图像工作台”，然后新建聊天使用。</p><p>面板无法直接提交时：在聊天输入框附上白模和参考图，发送“使用锚点插件，第一张是白模，后面依次是材质、氛围、植物参考，生成一张效果图”。也可从本页下载生图包，附在 Codex 聊天中。</p><p>换设备继续编辑：保存方案 → 将文件传到另一设备 → 导入方案。尚未提交的本地选图不会自动同步。</p></details>
+  <form id="anchor-form">
+    <div class="plan-tools"><span>保存方案以继续编辑；生图包可交给 Codex。</span><button type="button" id="save-plan">保存方案</button><label class="import-plan">导入方案<input id="import-plan" type="file" accept=".json,application/json" aria-label="导入锚点方案"></label><button type="button" id="download-bundle">下载生图包</button></div>
+    <section aria-labelledby="images-heading"><div class="section-title"><h2 id="images-heading">01 / 放入图片</h2><span>一张底图，各司其职的参考</span></div><div class="images" id="image-slots"></div></section>
+    <section aria-labelledby="settings-heading"><div class="section-title"><h2 id="settings-heading">02 / 确定不变的部分</h2></div>
+      <div class="locks"><label><input type="checkbox" name="mass" checked> 保持建筑体量</label><label><input type="checkbox" name="camera" checked> 保持相机视角</label><label><input type="checkbox" name="site" checked> 保持场地关系</label></div>
+      <p class="subtle">这些是生成约束，出图后仍需检查几何偏差。</p>
+      <div class="selects"><label>立面表达<select name="material"><option>跟随立面参考</option><option>中性透明玻璃</option><option>低反射灰色玻璃</option><option>金属竖向构件</option></select></label><label>光线氛围<select name="light"><option>跟随氛围参考</option><option>阴天柔光</option><option>晴天自然光</option><option>黄昏暖光</option><option>夜景</option></select></label></div>
+      <label class="note-label">补充一点要求 <span>可不填</span><textarea name="note" rows="2" maxlength="600" placeholder="例如：植物少一些，重点表现玻璃与竖向线条。"></textarea></label>
+    </section>
+    <details><summary>查看自动整理的生成要求</summary><textarea id="brief" rows="10" readonly aria-label="自动整理的生成要求"></textarea></details>
+    <footer><div><strong id="readiness">先放入一张白模底图</strong><p id="submit-hint">正在检测提交方式…</p></div><div class="actions"><button type="button" id="copy">复制要求</button><button type="submit" id="send" class="primary" disabled>提交给 ChatGPT ↗</button></div></footer>
+    <section id="handoff" class="handoff" aria-labelledby="handoff-title" hidden>
+      <h2 id="handoff-title" tabindex="-1">把方案带到聊天中</h2>
+      <p id="handoff-reason">这个网页没有聊天连接，所选图片尚未提交。</p>
+      <ol><li>点击上方“下载生图包”，获得原图、图片分类与生成要求。</li><li>回到已启用锚点插件的 Codex 聊天，把生图包作为附件上传。</li><li>发送：<strong>使用锚点插件，读取生图包里的白模、参考图与要求，生成一张效果图。</strong></li></ol>
+      <p>聊天不支持 ZIP 时：解压生图包，附上编号图片，并粘贴 render-request.txt。也可以“保存方案”后，在支持上传的聊天面板中导入并提交。</p>
+      <p class="subtle">保存和导入不会生成图片，也不会自动发送消息。方案文件包含你选择的原图。</p>
+    </section>
+    <p id="feedback" role="status" aria-live="polite"></p>
+  </form>
+  <div class="footnote">验证版 0.1.4 · 支持 PNG、JPG、WebP，每张不超过 20 MB。<br>出图由当前 ChatGPT / Codex 聊天的原生能力完成。Codex 原生生图计入 Codex 用量；ChatGPT 的可用能力与额度取决于套餐和工作区。<br>未提交的图片保留在本页；保存方案和下载生图包均由你自行保管，不会自动同步到其他设备。</div>
+</main><script>/* ANCHOR_SCRIPT */</script></body></html>
